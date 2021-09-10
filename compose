@@ -1,0 +1,27 @@
+redis:
+  image: redis
+
+db:
+  image: postges:9.4
+
+worker:
+  build: ./worker
+  links: 
+  - db
+    redis  
+
+result:
+  build : ./result
+  ports: 
+  - 5001:8080
+  links: 
+  - db
+
+vote:
+  build: ./vote
+  ports: 
+  - 5002:8080
+  links: 
+  - redis
+
+
